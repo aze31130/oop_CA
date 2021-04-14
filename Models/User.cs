@@ -14,5 +14,6 @@
         public ADMIN_LEVEL adminlevel { get; set; }
         public int amounttopay { get; set; }
         public int payedamount { get; set; }
+        public int groupId { get; set; }
     }
 }

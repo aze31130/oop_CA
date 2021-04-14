@@ -15,6 +15,8 @@ namespace oop_CA.Models
         public int id { get; set; }
         public int studentId { get; set; }
         public SUBJECTS subject { get; set; }
+        public string description { get; set; }
+        public int coefficient { get; set; }
         public int value { get; set; }
     }
 }
