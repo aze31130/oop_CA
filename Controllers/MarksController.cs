@@ -1,15 +1,45 @@
-﻿using oop_CA.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using oop_CA.Data;
+using oop_CA.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace oop_CA.Controllers
 {
-    public class MarksController
+    public class MarksController : Controller
     {
-        //Function to get student's marks
-        public List<Mark> getMarks(int studentId)
+        private readonly Context _context;
+        public MarksController(Context context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            int studentId = 2;
+            return View(getMarks(studentId));
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+
+        //Function to get student's marks
+        private List<Mark> getMarks(int studentId)
+        {
+            List<Mark> marks = new List<Mark> { };
+
+            foreach (Mark mark in _context.marks.ToList())
+            {
+                if (mark.studentId.Equals(studentId))
+                {
+                    marks.Add(mark);
+                }
+            }
+            return marks;
         }
 
         //Function to get average of a list of mark
