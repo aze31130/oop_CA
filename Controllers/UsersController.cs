@@ -28,6 +28,7 @@ namespace oop_CA.Controllers
         {
             return View();
         }
+
         public IActionResult Register()
         {
             return View();
@@ -38,10 +39,14 @@ namespace oop_CA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> registerUser([Bind("id,firstname,lastname,email,password,userType")] User user)
         {
+            if (user.userType.Equals(USER_TYPE.ADMIN) || user.userType.Equals(USER_TYPE.TEACHER))
+            {
+                user.groupId = -1;
+                user.amountToPay = 0;
+                user.payedAmount = 0;
+            }
+            
             user.password = getSHA256Hash(user.password);
-            user.amounttopay = 0;
-            user.payedamount = 0;
-            user.groupId = 0;
 
             if (ModelState.IsValid)
             {
@@ -65,25 +70,22 @@ namespace oop_CA.Controllers
             }
         }
 
-        [HttpGet]
+        //Returns a list of every users
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.users.ToListAsync();
         }
 
-        [HttpPost]
-        public async Task<ActionResult<User>> Register(User user)
+        //Returns a user by knowing his id
+        public User getUserById(int userId)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-            else
-            {
-                _context.users.Add(user);
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetUsers", new { id = user.id }, user);
-            }
+            return _context.users.ToList().Find(x => x.id.Equals(userId));
+        }
+
+        //Returns a list of every user of a given type
+        public List<User> getUsersByType(USER_TYPE type)
+        {
+            return _context.users.ToList().FindAll(x => x.userType.Equals(type));
         }
 
         [HttpPut("id")]

@@ -15,6 +15,11 @@
                 <span asp-validation-for="id" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="groupId" class="control-label"></label>
+                <input asp-for="groupId" class="form-control" />
+                <span asp-validation-for="groupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="firstname" class="control-label"></label>
                 <input asp-for="firstname" class="form-control" />
                 <span asp-validation-for="firstname" class="text-danger"></span>
@@ -36,10 +41,24 @@
             </div>
             <div class="form-group">
                 <label asp-for="userType" class="control-label"></label>
+                <select>
+                    <option value="STUDENT">Student</option>
+                    <option value="TEACHER">Teacher</option>
+                    <option value="ADMIN">Admin</option>
+                </select>
                 <input asp-for="userType" class="form-control" />
                 <span asp-validation-for="userType" class="text-danger"></span>
             </div>
-
+            <div class="form-group">
+                <label asp-for="amountToPay" class="control-label"></label>
+                <input asp-for="amountToPay" class="form-control" />
+                <span asp-validation-for="amountToPay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="payedAmount" class="control-label"></label>
+                <input asp-for="payedAmount" class="form-control" />
+                <span asp-validation-for="payedAmount" class="text-danger"></span>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>
