@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 
 namespace oop_CA.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class UsersController : ControllerBase
+    public class UsersController : Controller
     {
         private readonly Context _context;
         public UsersController(Context context)
@@ -19,6 +17,19 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Manage()
+        {
+            return View();
+        }
+
+
+
+        
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
@@ -70,5 +81,6 @@ namespace oop_CA.Controllers
                 return user;
             }
         }
+        
     }
 }

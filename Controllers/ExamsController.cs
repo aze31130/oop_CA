@@ -11,7 +11,9 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
-
-
+        public IActionResult Index()
+        {
+            return View();
+        }
     }
 }

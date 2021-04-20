@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using oop_CA.Data;
 using oop_CA.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +12,11 @@ namespace oop_CA.Controllers
         public GroupsController(Context context)
         {
             _context = context;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
         }
 
         //Function to get the amount of student in a group
