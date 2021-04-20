@@ -14,7 +14,6 @@ namespace oop_CA.Controllers
         {
             _context = context;
         }
-
         public IActionResult Index()
         {
             int studentId = 2;
@@ -25,7 +24,6 @@ namespace oop_CA.Controllers
         {
             return View();
         }
-
 
         //Function to get student's marks
         private List<Mark> getMarks(int studentId)
@@ -43,44 +41,108 @@ namespace oop_CA.Controllers
         }
 
         //Function to get average of a list of mark
-        public int getStudentAverage(int studentId)
+        public double getStudentAverage(int studentId)
         {
-            throw new NotImplementedException();
+            List<Mark> marks = getMarks(studentId);
+            int totalSum = 0;
+            int coefSum = 0;
+            foreach (Mark mark in marks)
+            {
+                totalSum += (mark.value * mark.coefficient);
+                coefSum += mark.coefficient;
+            }
+
+            //Safety for a divide by 0 exception
+            if (coefSum.Equals(0))
+            {
+                coefSum = 1;
+            }
+            return (totalSum / coefSum);
         }
 
         //Overloading for a list of marks
         public int getStudentAverage(List<Mark> marks)
         {
-            throw new NotImplementedException();
+            int totalSum = 0;
+            int coefSum = 0;
+            foreach (Mark mark in marks)
+            {
+                totalSum += (mark.value * mark.coefficient);
+                coefSum += mark.coefficient;
+            }
+
+            //Safety for a divide by 0 exception
+            if (coefSum.Equals(0))
+            {
+                coefSum = 1;
+            }
+            return (totalSum / coefSum);
         }
 
         //Function to get the highest mark
         public int getStudentHighestMark(int studentId)
         {
-            throw new NotImplementedException();
+            List<Mark> marks = getMarks(studentId);
+            int maxMark = 0;
+            foreach (Mark mark in marks)
+            {
+                if (maxMark < mark.value)
+                {
+                    maxMark = mark.value;
+                }
+            }
+            return maxMark;
         }
 
         //Overloading for a list of marks
         public int getStudentHighestMark(List<Mark> marks)
         {
-            throw new NotImplementedException();
+            int maxMark = 0;
+            foreach (Mark mark in marks)
+            {
+                if (maxMark < mark.value)
+                {
+                    maxMark = mark.value;
+                }
+            }
+            return maxMark;
         }
 
         //Function to get the lowest mark
         public int getStudentLowestMark(int studentId)
         {
-            throw new NotImplementedException();
+            List<Mark> marks = getMarks(studentId);
+            int minMark = 100;
+            foreach (Mark mark in marks)
+            {
+                if (minMark > mark.value)
+                {
+                    minMark = mark.value;
+                }
+            }
+            return minMark;
         }
 
         //Overloading for a list of marks
         public int getStudentLowestMark(List<Mark> marks)
         {
-            throw new NotImplementedException();
+            int minMark = 100;
+            foreach (Mark mark in marks)
+            {
+                if (minMark > mark.value)
+                {
+                    minMark = mark.value;
+                }
+            }
+            return minMark;
         }
 
         //Function to get the average mark of a group
         public int getGroupAverage(int groupId)
         {
+            //Get a list of every studentId
+            //Get the average for every
+            //Calcul the global average
             throw new NotImplementedException();
         }
     }

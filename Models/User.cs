@@ -1,8 +1,10 @@
 ﻿namespace oop_CA.Models
 {
-    public enum USER_TYPE
+    public enum USER_TYPE : int
     {
-        STUDENT, TEACHER, ADMIN
+        STUDENT = 1,
+        TEACHER = 2,
+        ADMIN = 3
     }
 
     public class User

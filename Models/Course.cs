@@ -1,8 +1,14 @@
 ﻿namespace oop_CA.Models
 {
-    public enum DAYS
+    public enum DAYS : int
     {
-        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+        MONDAY = 1,
+        TUESDAY = 2,
+        WEDNESDAY = 3,
+        THURSDAY = 4,
+        FRIDAY = 5,
+        SATURDAY = 6,
+        SUNDAY = 7
     }
     public class Course
     {

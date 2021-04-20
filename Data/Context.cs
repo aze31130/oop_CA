@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using oop_CA.Models;
+using System;
 
 namespace oop_CA.Data
 {
@@ -12,5 +13,13 @@ namespace oop_CA.Data
         public DbSet<Mark> marks { get; set; }
         public DbSet<Timetable> timetables { get; set; }
         public DbSet<User> users { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Course>().Property(x => x.day).HasConversion(v => v.ToString(), v => (DAYS)Enum.Parse(typeof(DAYS), v));
+            modelBuilder.Entity<Course>().Property(x => x.subject).HasConversion(v => v.ToString(), v => (SUBJECTS)Enum.Parse(typeof(SUBJECTS), v));
+            modelBuilder.Entity<Mark>().Property(x => x.subject).HasConversion(v => v.ToString(),v => (SUBJECTS)Enum.Parse(typeof(SUBJECTS), v));
+            modelBuilder.Entity<User>().Property(x => x.userType).HasConversion(v => v.ToString(), v => (USER_TYPE)Enum.Parse(typeof(USER_TYPE), v));
+        }
     }
 }
