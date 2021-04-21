@@ -16,6 +16,7 @@
         public string email { get; set; }
         public string username { get; set; }
         public string password { get; set; }
+        public string salt { get; set; }
         public USER_TYPE userType { get; set; } //Wont be longer used
         public string accessLevel { get; set; }
         public int amountToPay { get; set; }

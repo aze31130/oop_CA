@@ -98,7 +98,7 @@ namespace oop_CA.Controllers
             }
 
             // Granting access if the hashed password in the database matches with the password(hashed in computeHash method) entered by user.
-            if (getSHA256Hash(password) != user.password)
+            if (!getSHA256Hash(getSHA256Hash(password + user.salt) + user.salt).Equals(user.password))
             {
                 return null;
             }
@@ -117,8 +117,9 @@ namespace oop_CA.Controllers
                 user.amountToPay = 0;
                 user.payedAmount = 0;
             }
-            
-            user.password = getSHA256Hash(user.password);
+            user.salt = getRandomSalt(10);
+
+            user.password = getSHA256Hash(getSHA256Hash(user.password + user.salt) + user.salt);
 
             if (ModelState.IsValid)
             {
@@ -140,6 +141,20 @@ namespace oop_CA.Controllers
                 }
                 return builder.ToString();
             }
+        }
+
+        public static string getRandomSalt(int lenght)
+        {
+            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            char[] saltBuilder = new char[lenght];
+            Random random = new Random();
+            for (int i = 0; i < saltBuilder.Length; i++)
+            {
+                saltBuilder[i] = chars[random.Next(chars.Length)];
+            }
+
+            var finalSalt = new String(saltBuilder);
+            return finalSalt;
         }
 
         //Returns a list of every users
