@@ -53,7 +53,6 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        //[HttpPost("authenticate")]
         [AllowAnonymous]
         public IActionResult authenticate([Bind("username,password")] AuthenticateModel model)
         {
@@ -134,6 +133,7 @@ namespace oop_CA.Controllers
             return View("Index");
         }
 
+        //Calculate the SHA256 hash of a string
         public static string getSHA256Hash(string password)
         {
             using (SHA256 sha256Hash = SHA256.Create())
@@ -148,6 +148,7 @@ namespace oop_CA.Controllers
             }
         }
 
+        //Function that generate a random string
         public static string getRandomSalt(int lenght)
         {
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -157,9 +158,7 @@ namespace oop_CA.Controllers
             {
                 saltBuilder[i] = chars[random.Next(chars.Length)];
             }
-
-            var finalSalt = new String(saltBuilder);
-            return finalSalt;
+            return new String(saltBuilder);
         }
 
         //Returns a list of every users
@@ -180,6 +179,7 @@ namespace oop_CA.Controllers
             return _context.users.ToList().FindAll(x => x.userType.Equals(type));
         }
 
+        ///
         [HttpPut("id")]
         public async Task<ActionResult> UpdateUser(int id, User user)
         {
