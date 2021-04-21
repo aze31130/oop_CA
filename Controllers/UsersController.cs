@@ -37,10 +37,9 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        [Authorize(Roles = AccessLevel.ADMIN)]
         public IActionResult Manage()
         {
-            return View();
+            return View(GetUsers());
         }
 
         public IActionResult Register()
@@ -48,6 +47,7 @@ namespace oop_CA.Controllers
             return View();
         }
 
+        [Authorize(Roles = AccessLevel.ADMIN)]
         public IActionResult Update()
         {
             return View();
@@ -114,7 +114,7 @@ namespace oop_CA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> registerUser(
-            [Bind("id,firstname,lastname,email,username,password,userType,amountToPay,payedAmount,groupId,accessLevel")] User user)
+            [Bind("firstname,lastname,email,username,password,userType,amountToPay,payedAmount,groupId,accessLevel")] User user)
         {
             if (user.userType.Equals(USER_TYPE.ADMIN) || user.userType.Equals(USER_TYPE.TEACHER))
             {
@@ -163,9 +163,9 @@ namespace oop_CA.Controllers
         }
 
         //Returns a list of every users
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        private List<User> GetUsers()
         {
-            return await _context.users.ToListAsync();
+            return _context.users.ToList();
         }
 
         //Returns a user by knowing his id

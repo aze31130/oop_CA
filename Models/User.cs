@@ -1,4 +1,6 @@
-﻿namespace oop_CA.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace oop_CA.Models
 {
     public enum USER_TYPE : int
     {
@@ -9,6 +11,7 @@
 
     public class User
     {
+        [Key]
         public int id { get; set; }
         public int groupId { get; set; } //-1 for teachers and admin
         public string firstname { get; set; }

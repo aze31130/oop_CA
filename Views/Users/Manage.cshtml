@@ -1,3 +1,67 @@
-﻿manage page
+﻿@model IEnumerable<oop_CA.Models.User>;
 
-<a asp-action="Index">Back to index</a>
+<h1>Manage Users</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.username)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.password)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.salt)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(ModelItem => item.id)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.username)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.password)
+            </td>
+            <td>
+                @Html.DisplayFor(ModelItem => item.salt)
+            </td>
+            <td>
+                <a asp-action="Manage" asp-route-id="@item.id">Edit</a>
+                <a asp-action="Manage" asp-route-id="@item.id">Details</a>
+                <a asp-action="Manage" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to index</a>
+</div>
