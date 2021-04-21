@@ -63,7 +63,7 @@ namespace oop_CA.Controllers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                     new Claim(ClaimTypes.Name, user.id.ToString()),
+                     new Claim(ClaimTypes.Name, user.username.ToString()),
                      new Claim(ClaimTypes.Role, user.accessLevel ?? "null")
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
@@ -72,7 +72,6 @@ namespace oop_CA.Controllers
             var token = tokenHandler.CreateToken(tokenDescriptor);
             var tokenString = tokenHandler.WriteToken(token);
             // return basic user info and authentication token
-            Manage();
             return Ok(new
             {
                 Id = user.id,

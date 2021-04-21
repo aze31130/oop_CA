@@ -5,7 +5,8 @@
         WRITTEN = 1,
         ORAL = 2,
         HOMEWORK = 3,
-        ONLINE = 4
+        ONLINE = 4,
+        FINAL_EXAM = 5
     }
     public enum STATE : int
     {
