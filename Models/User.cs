@@ -13,7 +13,6 @@ namespace oop_CA.Models
     {
         [Key]
         public int id { get; set; }
-        public int groupId { get; set; } //-1 for teachers and admin
         public string firstname { get; set; }
         public string lastname { get; set; }
         public string email { get; set; }

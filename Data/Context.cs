@@ -14,6 +14,7 @@ namespace oop_CA.Data
         public DbSet<Timetable> timetables { get; set; }
         public DbSet<User> users { get; set; }
         public DbSet<Exam> exams { get; set; }
+        public DbSet<StudentGroup> studentgroups { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

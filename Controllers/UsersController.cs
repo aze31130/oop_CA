@@ -1,33 +1,24 @@
 ﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
 using oop_CA.Data;
 using oop_CA.Models;
-using System;
 using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using System.Threading.Tasks;
+using static oop_CA.Utils.UsersUtils;
 
 namespace oop_CA.Controllers
 {
     public class UsersController : Controller
     {
-        public IConfiguration Configuration;
         private readonly Context _context;
 
-        public UsersController(Context context, IConfiguration configuration)
+        public UsersController(Context context)
         {
             _context = context;
-            Configuration = configuration;
         }
 
         public IActionResult Index()
@@ -100,7 +91,7 @@ namespace oop_CA.Controllers
 
             User user = _context.users.FirstOrDefault(x => x.username.Equals(username)) ?? null;
 
-            // check if username exists
+            //Check if username exists
             if (user == null)
             {
                 return null;
@@ -122,12 +113,10 @@ namespace oop_CA.Controllers
         {
             if (user.userType.Equals(USER_TYPE.ADMIN) || user.userType.Equals(USER_TYPE.TEACHER))
             {
-                user.groupId = -1;
                 user.amountToPay = 0;
                 user.payedAmount = 0;
             }
             user.salt = getRandomSalt(10);
-
             user.password = getSHA256Hash(getSHA256Hash(user.password + user.salt) + user.salt);
 
             if (ModelState.IsValid)
@@ -136,34 +125,6 @@ namespace oop_CA.Controllers
                 await _context.SaveChangesAsync();
             }
             return View("Index");
-        }
-
-        //Calculate the SHA256 hash of a string
-        public static string getSHA256Hash(string password)
-        {
-            using (SHA256 sha256Hash = SHA256.Create())
-            {
-                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
-                StringBuilder builder = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    builder.Append(bytes[i].ToString("x2"));
-                }
-                return builder.ToString();
-            }
-        }
-
-        //Function that generate a random string
-        public static string getRandomSalt(int lenght)
-        {
-            string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-            char[] saltBuilder = new char[lenght];
-            Random random = new Random();
-            for (int i = 0; i < saltBuilder.Length; i++)
-            {
-                saltBuilder[i] = chars[random.Next(chars.Length)];
-            }
-            return new String(saltBuilder);
         }
 
         //Returns a list of every users
@@ -183,6 +144,8 @@ namespace oop_CA.Controllers
         {
             return _context.users.ToList().FindAll(x => x.userType.Equals(type));
         }
+
+
 
         ///
         [HttpPut("id")]
