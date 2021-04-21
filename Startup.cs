@@ -28,20 +28,13 @@ namespace oop_CA
             {
                 opt.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddAuthentication(opt => {
-                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options => {
-                options.TokenValidationParameters = new TokenValidationParameters {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "http://localhost:????",
-                    ValidAudience = "http://localhost:????",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisasecret"))
-                };
-            });
+
+            services.AddAuthentication("CookieAuthentication")
+                .AddCookie("CookieAuthentication", config =>
+                {
+                    config.Cookie.Name = "UserLoginCookie";
+                    config.LoginPath = "/Users/Login";
+                });
             services.AddControllers();
         }
 

@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -37,6 +40,7 @@ namespace oop_CA.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Manage()
         {
             return View(GetUsers());
@@ -47,12 +51,25 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        [Authorize(Roles = AccessLevel.ADMIN)]
+        [Authorize(Roles = AccessLevel.STUDENT)]
         public IActionResult Update()
         {
             return View();
         }
 
+        [Authorize]
+        public IActionResult Logout()
+        {
+            return View();
+        }
+
+        [Authorize]
+        public async Task<IActionResult> LogoutUser()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+        
         [AllowAnonymous]
         public IActionResult authenticate([Bind("username,password")] AuthenticateModel model)
         {
@@ -61,29 +78,17 @@ namespace oop_CA.Controllers
             {
                 return BadRequest(new { message = "Username or password is incorrect" });
             }
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var userClaims = new List<Claim>()
             {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                     new Claim(ClaimTypes.Name, user.username.ToString()),
-                     new Claim(ClaimTypes.Role, user.accessLevel ?? "null")
-                }),
-                Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                new Claim(ClaimTypes.Name, user.username),
+                new Claim(ClaimTypes.Email, user.email),
+                new Claim(ClaimTypes.Role, user.accessLevel),
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            var tokenString = tokenHandler.WriteToken(token);
-            // return basic user info and authentication token
-            return Ok(new
-            {
-                Id = user.id,
-                Username = user.username,
-                FirstName = user.firstname,
-                LastName = user.lastname,
-                Token = tokenString
-            });
+
+            var claimsIdentity = new ClaimsIdentity(userClaims, "User Identity");
+            var userPrincipal = new ClaimsPrincipal(new[] { claimsIdentity });
+            HttpContext.SignInAsync(userPrincipal);
+            return RedirectToAction("Index", "Home");
         }
 
         private User AuthenticateUser(string username, string password)
