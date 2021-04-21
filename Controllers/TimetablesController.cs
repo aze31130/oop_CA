@@ -17,6 +17,16 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         private Course getCourseById(int courseId)
         {
             return _context.courses.ToList().Find(x => x.id.Equals(courseId));

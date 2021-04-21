@@ -14,13 +14,29 @@ namespace oop_CA.Controllers
         {
             _context = context;
         }
+
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             int studentId = 2;
             return View(getMarks(studentId));
         }
 
-        public IActionResult Create()
+        public IActionResult Remove()
         {
             return View();
         }

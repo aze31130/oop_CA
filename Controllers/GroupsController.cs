@@ -14,7 +14,27 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
+        public IActionResult Add()
+        {
+            return View();
+        }
+
+        public IActionResult Details()
+        {
+            return View();
+        }
+
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
         public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Remove()
         {
             return View();
         }

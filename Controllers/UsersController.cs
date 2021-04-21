@@ -32,6 +32,11 @@ namespace oop_CA.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [Authorize(Roles = AccessLevel.ADMIN)]
         public IActionResult Manage()
         {
@@ -43,7 +48,7 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Update()
         {
             return View();
         }
