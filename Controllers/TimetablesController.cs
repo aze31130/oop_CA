@@ -3,6 +3,7 @@ using oop_CA.Data;
 using oop_CA.Models;
 using System;
 using System.Collections.Generic;
+using static oop_CA.Models.Enumeration;
 
 namespace oop_CA.Controllers
 {
@@ -25,7 +26,7 @@ namespace oop_CA.Controllers
         }
 
         //Overloading with a day filter
-        public List<Course> getStudentCourses(int studentId, DAYS day)
+        public List<Course> getStudentCourses(int studentId, DAY day)
         {
             throw new NotImplementedException();
         }

@@ -45,10 +45,12 @@ namespace oop_CA.Controllers
             int amount = 0;
             foreach (User user in _context.users.ToList())
             {
+                /*
                 if (user.groupId.Equals(groupId))
                 {
                     amount++;
                 }
+                */
             }
             return amount;
         }
@@ -59,10 +61,12 @@ namespace oop_CA.Controllers
             List<User> students = new List<User> { };
             foreach (User user in _context.users.ToList())
             {
+                /*
                 if (user.groupId.Equals(groupId))
                 {
                     students.Add(user);
                 }
+                */
             }
             return students;
         }

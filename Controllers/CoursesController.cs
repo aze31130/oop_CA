@@ -12,7 +12,7 @@ namespace oop_CA.Controllers
             throw new NotImplementedException();
         }
 
-        public IActionResult Add()
+        public IActionResult Schedule()
         {
             return View();
         }

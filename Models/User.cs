@@ -1,14 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using static oop_CA.Models.Enumeration;
 
 namespace oop_CA.Models
 {
-    public enum USER_TYPE : int
-    {
-        STUDENT = 1,
-        TEACHER = 2,
-        ADMIN = 3
-    }
-
     public class User
     {
         [Key]

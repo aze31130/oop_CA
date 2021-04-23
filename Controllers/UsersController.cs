@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static oop_CA.Models.Enumeration;
 using static oop_CA.Utils.UsersUtils;
 
 namespace oop_CA.Controllers
@@ -109,7 +110,7 @@ namespace oop_CA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> registerUser(
-            [Bind("firstname,lastname,email,username,password,userType,amountToPay,payedAmount,groupId,accessLevel")] User user)
+            [Bind("firstname,lastname,email,username,password,userType,amountToPay,payedAmount,accessLevel")] User user)
         {
             if (user.userType.Equals(USER_TYPE.ADMIN) || user.userType.Equals(USER_TYPE.TEACHER))
             {
