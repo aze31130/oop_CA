@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using static oop_CA.Models.Enumeration;
 
 namespace oop_CA.Utils
 {
@@ -38,6 +39,14 @@ namespace oop_CA.Utils
                 saltBuilder[i] = chars[random.Next(chars.Length)];
             }
             return new String(saltBuilder);
+        }
+
+        //-----
+        //Returns a list of all teachers
+        //-----
+        public static List<User> getAllTeachers(List<User> allUsers)
+        {
+            return allUsers.FindAll(x => x.userType.Equals(USER_TYPE.TEACHER));
         }
     }
 }

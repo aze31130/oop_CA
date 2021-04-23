@@ -1,6 +1,64 @@
-﻿index view for courses
+﻿@model IEnumerable<oop_CA.Models.Course>;
 
 <a asp-action="Schedule">Schedule</a>
+<a asp-action="Assign">Assign</a>
 <a asp-action="Details">Details</a>
 <a asp-action="Edit">Edit</a>
 <a asp-action="Remove">Remove</a>
+<br />
+<br />
+<h1>All Courses</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.day)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.beginHour)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.endHour)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.type)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.day)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.beginHour)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.endHour)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                    <a asp-action="Remove" asp-route-id="@item.id">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

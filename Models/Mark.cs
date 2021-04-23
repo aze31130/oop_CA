@@ -6,6 +6,7 @@ namespace oop_CA.Models
 
     public class Mark
     {
+        [Key]
         public int id { get; set; }
         [Display(Name = "Student Id")]
         public int studentId { get; set; }

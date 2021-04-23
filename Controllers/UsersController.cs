@@ -27,6 +27,14 @@ namespace oop_CA.Controllers
             return View();
         }
 
+        //-----
+        //View to list every teacher
+        //-----
+        public IActionResult Teachers()
+        {
+            return View(getAllTeachers(_context.users.ToList()));
+        }
+
         public IActionResult Login()
         {
             return View();
@@ -43,7 +51,7 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        [Authorize(Roles = AccessLevel.STUDENT)]
+        [Authorize(Roles = AccessLevel.ADMIN)]
         public IActionResult Update()
         {
             return View();

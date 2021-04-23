@@ -7,7 +7,6 @@ namespace oop_CA.Models
     {
         [Key]
         public int id { get; set; }
-        public int teacherId { get; set; }
         public SUBJECT subject { get; set; }
         public TYPE type { get; set; }
         public DAY day { get; set; }

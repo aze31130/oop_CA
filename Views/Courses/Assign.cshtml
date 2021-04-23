@@ -1,0 +1,36 @@
+﻿@model oop_CA.Models.Timetable;
+
+<h1>Assign</h1>
+<a asp-action="Teachers">Course List [TODO]</a>
+<a asp-action="Teachers">Group List [TODO]</a>
+<a asp-controller="Users" asp-action="Teachers">Teacher List</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="registerUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="courseId" class="control-label"></label>
+                <input asp-for="courseId" class="form-control" />
+                <span asp-validation-for="courseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="groupId" class="control-label"></label>
+                <input asp-for="groupId" class="form-control" />
+                <span asp-validation-for="groupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="teacherId" class="control-label"></label>
+                <input asp-for="teacherId" class="form-control" />
+                <span asp-validation-for="teacherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to index</a>
+</div>
