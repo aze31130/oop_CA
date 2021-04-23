@@ -1,3 +1,70 @@
-﻿add course view 
+﻿@model oop_CA.Models.Course;
 
-<a asp-action="Index">Back to the Index</a>
+<h1>Schedule a course</h1>
+
+<h4>New Course</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="scheduleAction">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="teacherId" class="control-label"></label>
+                <input asp-for="teacherId" class="form-control" />
+                <span asp-validation-for="teacherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="subject" class="control-label"></label>
+                <select asp-for="subject">
+                    <option value="MATHS">MATHS</option>
+                    <option value="PHYSICS">PHYSICS</option>
+                    <option value="PROGRAMMING">PROGRAMMING</option>
+                    <option value="ENGLISH">ENGLISH</option>
+                    <option value="ELECTRONICS">ELECTRONICS</option>
+                </select>
+                <span asp-validation-for="subject" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="type" class="control-label"></label>
+                <select asp-for="type">
+                    <option value="COURSE">COURSE</option>
+                    <option value="ONLINE_COURSE">ONLINE_COURSE</option>
+                    <option value="WRITTEN_EXAM">WRITTEN_EXAM</option>
+                    <option value="ORAL_EXAM">ORAL_EXAM</option>
+                    <option value="ONLINE_EXAM">ONLINE_EXAM</option>
+                </select>
+                <span asp-validation-for="type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="day" class="control-label"></label>
+                <select asp-for="day">
+                    <option value="MONDAY">MONDAY</option>
+                    <option value="TUESDAY">TUESDAY</option>
+                    <option value="WEDNESDAY">WEDNESDAY</option>
+                    <option value="THURSDAY">THURSDAY</option>
+                    <option value="FRIDAY">FRIDAY</option>
+                    <option value="SATURDAY">SATURDAY</option>
+                    <option value="SUNDAY">SUNDAY</option>
+                </select>
+                <span asp-validation-for="day" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="beginHour" class="control-label"></label>
+                <input asp-for="beginHour" class="form-control" />
+                <span asp-validation-for="beginHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="endHour" class="control-label"></label>
+                <input asp-for="endHour" class="form-control" />
+                <span asp-validation-for="endHour" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Schedule" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

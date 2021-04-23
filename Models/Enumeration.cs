@@ -35,8 +35,7 @@
             ONLINE_COURSE = 2,
             WRITTEN_EXAM = 3,
             ORAL_EXAM = 4,
-            ONLINE_EXAM = 5,
-            FINAL_EXAM = 6
+            ONLINE_EXAM = 5
         }
     }
 }

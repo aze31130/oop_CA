@@ -39,49 +39,5 @@ namespace oop_CA.Utils
             }
             return new String(saltBuilder);
         }
-
-        //-----
-        //Returns the course object when given it's id
-        //-----
-        public static Course getCourseById(int courseId, List<Course> allCourses)
-        {
-            return allCourses.Find(x => x.id.Equals(courseId));
-        }
-
-        //-----
-        //Returns a list of every courses of a given group
-        //-----
-        public static List<Course> getGroupCourse(int groupId, List<Timetable> allTimetables, List<Course> allCourses)
-        {
-            List<Course> groupCourses = new List<Course> { };
-            foreach (Timetable tt in allTimetables)
-            {
-                if (tt.groupId.Equals(groupId))
-                {
-                    groupCourses.Add(getCourseById(tt.courseId, allCourses));
-                }
-            }
-            return groupCourses;
-        }
-
-        //-----
-        //Returns a list of every courses of a given student
-        //-----
-        public static List<Course> getUserCourse(int userId, List<Timetable> allTimetables, List<Course> allCourses, List<StudentGroup> allGroups)
-        {
-            List<Course> studentCourses = new List<Course> { };
-            foreach (StudentGroup group in allGroups)
-            {
-                if (group.studentId.Equals(userId))
-                {
-                    studentCourses.AddRange(getGroupCourse(group.id, allTimetables, allCourses));
-                }
-            }
-            return studentCourses;
-        }
-
-        //-----
-        //Returns
-        //-----
     }
 }
