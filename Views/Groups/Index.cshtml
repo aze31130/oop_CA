@@ -1,6 +1,40 @@
-﻿Group Page
-
-<a asp-action="Add">Add</a>
-<a asp-action="Details">Details</a>
-<a asp-action="Edit">Edit</a>
-<a asp-action="Remove">Remove</a>
+﻿@model IEnumerable<oop_CA.Models.Group>;
+<h1>List of groups</h1>
+<a asp-action="Add">Add Student</a>
+<a asp-action="Create">Create</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.referentTeacherId)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.referentTeacherId)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                    <a asp-action="Remove" asp-route-id="@item.id">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

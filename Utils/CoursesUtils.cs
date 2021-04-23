@@ -7,6 +7,15 @@ namespace oop_CA.Utils
     public class CoursesUtils
     {
         //-----
+        //Returns true if a timetable is valid
+        //-----
+        public static bool isTimetableValid(Timetable timetable)
+        {
+            //TODO
+            return true;
+        }
+
+        //-----
         //Returns true if the course is valid
         //-----
         public static bool isCourseOk(Course course)

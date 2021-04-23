@@ -3,6 +3,7 @@ using oop_CA.Data;
 using oop_CA.Models;
 using System.Collections.Generic;
 using System.Linq;
+using static oop_CA.Utils.GroupsUtils;
 
 namespace oop_CA.Controllers
 {
@@ -14,26 +15,65 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
+        //-----
+        //Index View
+        //-----
+        public IActionResult Index()
+        {
+            return View(_context.groups.ToList());
+        }
+
+        //-----
+        //Add student to a group View
+        //-----
         public IActionResult Add()
         {
             return View();
         }
 
+        //-----
+        //Create group View
+        //-----
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        //-----
+        //Create action group View
+        //-----
+        public IActionResult createAction([Bind("name,referentTeacherId")] Group group)
+        {
+            //Check if the group is valid
+            if (!isGroupValid(group))
+            {
+                return BadRequest(new { message = "Some course informations are incorrect !" });
+            }
+            //Insert it into the database
+            _context.groups.Add(group);
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Groups");
+        }
+
+        //-----
+        //Group details View
+        //-----
         public IActionResult Details()
         {
             return View();
         }
 
+        //-----
+        //Edit group View
+        //-----
         public IActionResult Edit()
         {
             return View();
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
+        //-----
+        //Remove group View
+        //-----
         public IActionResult Remove()
         {
             return View();

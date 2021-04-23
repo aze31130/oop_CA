@@ -22,6 +22,9 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
+        //-----
+        //Index View
+        //-----
         public IActionResult Index()
         {
             return View();
@@ -35,28 +38,43 @@ namespace oop_CA.Controllers
             return View(getAllTeachers(_context.users.ToList()));
         }
 
+        //-----
+        //Login View
+        //-----
         public IActionResult Login()
         {
             return View();
         }
 
-        [Authorize]
+        //-----
+        //Manage users View
+        //-----
+        [Authorize(Roles = AccessLevel.ADMIN)]
         public IActionResult Manage()
         {
             return View(GetUsers());
         }
 
+        //-----
+        //Register user View
+        //-----
         public IActionResult Register()
         {
             return View();
         }
 
-        [Authorize(Roles = AccessLevel.ADMIN)]
+        //-----
+        //Self user update view
+        //-----
+        [Authorize]
         public IActionResult Update()
         {
             return View();
         }
 
+        //-----
+        //Logout View
+        //-----
         [Authorize]
         public IActionResult Logout()
         {

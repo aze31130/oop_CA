@@ -14,6 +14,10 @@ namespace oop_CA.Controllers
         {
             _context = context;
         }
+
+        //-----
+        //Index View
+        //-----
         public IActionResult Index()
         {
             return View(_context.courses.ToList());
@@ -60,21 +64,38 @@ namespace oop_CA.Controllers
         //-----
         //Action for view Assign
         //-----
-        public IActionResult assignAction()
+        public IActionResult assignAction([Bind("courseId,groupId,teacherId")] Timetable timetable)
         {
+            //Verification to make sure the course, group and teacher exist
+            if (!isTimetableValid(timetable))
+            {
+                return BadRequest(new { message = "The group or course or teacher doesn't exist !" });
+            }
+            //Add the timetable to the database
+            _context.timetables.Add(timetable);
+            _context.SaveChanges();
             return RedirectToAction("Index", "Courses");
         }
 
+        //-----
+        //Details View
+        //-----
         public IActionResult Details()
         {
             return View();
         }
 
+        //-----
+        //Edit View
+        //-----
         public IActionResult Edit()
         {
             return View();
         }
 
+        //-----
+        //Remove View
+        //-----
         public IActionResult Remove()
         {
             return View();
