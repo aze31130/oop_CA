@@ -10,10 +10,40 @@ namespace oop_CA.Utils
         //-----
         //Returns true if a timetable is valid
         //-----
-        public static bool isTimetableValid(Timetable timetable)
+        public static bool isTimetableValid(Timetable timetable, List<Course> allCourses, List<Group> allGroups, List<User> allTeachers)
         {
-            //TODO
-            return true;
+            bool firstRequirement = false;
+            bool secondRequirement = false;
+            bool thirdRequirement = false;
+
+            foreach (Course course in allCourses)
+            {
+                if (timetable.courseId.Equals(course.id))
+                {
+                    firstRequirement = true;
+                    break;
+                }
+            }
+
+            foreach (Group group in allGroups)
+            {
+                if (timetable.groupId.Equals(group.id))
+                {
+                    secondRequirement = true;
+                    break;
+                }
+            }
+
+            foreach (User teacher in allTeachers)
+            {
+                if (timetable.teacherId.Equals(teacher.id))
+                {
+                    thirdRequirement = true;
+                    break;
+                }
+            }
+
+            return (firstRequirement && secondRequirement && thirdRequirement);
         }
 
         //-----

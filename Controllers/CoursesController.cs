@@ -4,6 +4,7 @@ using oop_CA.Models;
 using System;
 using System.Linq;
 using static oop_CA.Utils.CoursesUtils;
+using static oop_CA.Utils.UsersUtils;
 
 namespace oop_CA.Controllers
 {
@@ -61,13 +62,13 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        //-----
+        //----- isTimetableValid(Timetable timetable, List<Course> allCourses, List<Group> allGroups, List<User> allTeachers)
         //Action for view Assign
         //-----
         public IActionResult assignAction([Bind("courseId,groupId,teacherId")] Timetable timetable)
         {
             //Verification to make sure the course, group and teacher exist
-            if (!isTimetableValid(timetable))
+            if (!isTimetableValid(timetable, _context.courses.ToList(), _context.groups.ToList(), getAllTeachers(_context.users.ToList())))
             {
                 return BadRequest(new { message = "The group or course or teacher doesn't exist !" });
             }

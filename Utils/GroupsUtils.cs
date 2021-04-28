@@ -24,12 +24,31 @@ namespace oop_CA.Utils
         //-----
         //Returns true if a group is valid
         //-----
-        public static bool isStudentGroupValid(StudentGroup studentGroup)
+        public static bool isStudentGroupValid(StudentGroup studentGroup, List<User> allUsers, List<Group> allGroups)
         {
-            //Check if 
+            bool firstRequirement = false;
+            bool secondRequirement = false;
+            //Check if the studentId is valid
+            foreach (User user in allUsers)
+            {
+                if (studentGroup.studentId.Equals(user.id))
+                {
+                    firstRequirement = true;
+                    break;
+                }
+            }
 
-            //TODO
-            return true;
+            //Check if the groupId is valid
+            foreach (Group group in allGroups)
+            {
+                if(studentGroup.groupId.Equals(group.id))
+                {
+                    secondRequirement = true;
+                    break;
+                }
+            }
+
+            return (firstRequirement && secondRequirement);
         }
 
         //-----

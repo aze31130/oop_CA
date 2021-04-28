@@ -40,7 +40,7 @@ namespace oop_CA.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> addAction([Bind("studentId,groupId")] StudentGroup studentGroup)
         {
-            if (isStudentGroupValid(studentGroup))
+            if (isStudentGroupValid(studentGroup, _context.users.ToList(), _context.groups.ToList()))
             {
                 _context.studentgroups.Add(studentGroup);
                 await _context.SaveChangesAsync();

@@ -28,6 +28,10 @@ namespace oop_CA.Controllers
         //-----
         public IActionResult Index()
         {
+            if (getUserId() > 0)
+            {
+                ViewData["Logged"] = "OK";
+            }
             return View();
         }
 
@@ -238,10 +242,18 @@ namespace oop_CA.Controllers
 
         //-----
         //Returns the id of the currently logged account
+        //Returns -1 if no one is logged
         //-----
         private int getUserId()
         {
-            return int.Parse(User.Identity.Name);
+            try
+            {
+                return int.Parse(User.Identity.Name);
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
         }
     }
 }

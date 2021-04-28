@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using oop_CA.Models;
+using System;
 using System.Diagnostics;
 
 namespace oop_CA.Controllers
@@ -16,6 +17,10 @@ namespace oop_CA.Controllers
 
         public IActionResult Index()
         {
+            if (getUserId() > 0)
+            {
+                ViewData["Logged"] = "OK";
+            }
             return View();
         }
 
@@ -28,6 +33,22 @@ namespace oop_CA.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        //-----
+        //Returns the id of the currently logged account
+        //Returns -1 if no one is logged
+        //-----
+        private int getUserId()
+        {
+            try
+            {
+                return int.Parse(User.Identity.Name);
+            }
+            catch (Exception)
+            {
+                return -1;
+            }
         }
     }
 }
