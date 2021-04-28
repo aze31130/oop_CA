@@ -145,7 +145,7 @@ namespace oop_CA.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> registerUser(
-            [Bind("firstname,lastname,email,username,password,userType,amountToPay,payedAmount,accessLevel")] User user)
+            [Bind("firstname,lastname,email,username,password,userType,amountToPay,payedAmount")] User user)
         {
             if (user.userType.Equals(USER_TYPE.ADMIN) || user.userType.Equals(USER_TYPE.TEACHER))
             {
@@ -154,6 +154,22 @@ namespace oop_CA.Controllers
             }
             user.salt = getRandomSalt(10);
             user.password = getSHA256Hash(getSHA256Hash(user.password + user.salt) + user.salt);
+
+            switch (user.userType)
+            {
+                case USER_TYPE.ADMIN:
+                    user.accessLevel = "ADMIN";
+                    break;
+                case USER_TYPE.TEACHER:
+                    user.accessLevel = "TEACHER";
+                    break;
+                case USER_TYPE.STUDENT:
+                    user.accessLevel = "STUDENT";
+                    break;
+                default:
+                    user.accessLevel = "UNKNOWN";
+                    break;
+            }
 
             if (ModelState.IsValid)
             {

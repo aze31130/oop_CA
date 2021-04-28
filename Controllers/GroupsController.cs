@@ -37,12 +37,15 @@ namespace oop_CA.Controllers
         //-----
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> addAction([Bind("studentId,groupId")] StudentGroup studentgroup)
+        public async Task<IActionResult> addAction([Bind("studentId,groupId")] StudentGroup studentGroup)
         {
-            //TODO CHECK IF THE GROUP IS VALID
-            _context.studentgroups.Add(studentgroup);
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "Groups");
+            if (isStudentGroupValid(studentGroup))
+            {
+                _context.studentgroups.Add(studentGroup);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", "Groups");
+            }
+            return BadRequest(new { message = "The entered group is invalid !" });
         }
         
 
