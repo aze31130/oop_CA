@@ -94,6 +94,14 @@ namespace oop_CA.Controllers
         }
 
         //-----
+        //List View
+        //-----
+        public IActionResult List()
+        {
+            return View(_context.courses.ToList());
+        }
+
+        //-----
         //Remove View
         //-----
         public IActionResult Remove()

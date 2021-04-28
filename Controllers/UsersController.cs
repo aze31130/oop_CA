@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using oop_CA.Data;
 using oop_CA.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -98,7 +99,7 @@ namespace oop_CA.Controllers
             }
             var userClaims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Name, user.username),
+                new Claim(ClaimTypes.Name, user.id.ToString()),
                 new Claim(ClaimTypes.Email, user.email),
                 new Claim(ClaimTypes.Role, user.accessLevel),
             };
@@ -204,6 +205,14 @@ namespace oop_CA.Controllers
                 await _context.SaveChangesAsync();
                 return user;
             }
+        }
+
+        //-----
+        //Returns the id of the currently logged account
+        //-----
+        private int getUserId()
+        {
+            return int.Parse(User.Identity.Name);
         }
     }
 }

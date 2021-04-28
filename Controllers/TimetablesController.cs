@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using oop_CA.Data;
-using oop_CA.Models;
-using System;
-using System.Collections.Generic;
-using static oop_CA.Models.Enumeration;
+using System.Linq;
+using static oop_CA.Utils.CoursesUtils;
 
 namespace oop_CA.Controllers
 {
+    [Authorize]
     public class TimetablesController : Controller
     {
         private readonly Context _context;
@@ -20,15 +20,20 @@ namespace oop_CA.Controllers
             return View();
         }
 
+        //-----
+        //Index view for timetable
+        //-----
         public IActionResult Index()
         {
-            return View();
+            return View(getUserCourse(getUserId(), _context.timetables.ToList(), _context.courses.ToList(), _context.studentgroups.ToList()));
         }
 
-        //Overloading with a day filter
-        public List<Course> getStudentCourses(int studentId, DAY day)
+        //-----
+        //Returns the id of the currently logged account
+        //-----
+        private int getUserId()
         {
-            throw new NotImplementedException();
+            return int.Parse(User.Identity.Name);
         }
     }
 }

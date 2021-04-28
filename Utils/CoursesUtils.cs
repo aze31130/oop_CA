@@ -1,6 +1,7 @@
 ﻿using oop_CA.Models;
 using System;
 using System.Collections.Generic;
+using static oop_CA.Models.Enumeration;
 
 namespace oop_CA.Utils
 {
@@ -70,6 +71,14 @@ namespace oop_CA.Utils
                 }
             }
             return studentCourses;
+        }
+
+        //-----
+        //Returns a list of every courses of a given student only for a specific day
+        //-----
+        public List<Course> getStudentCourses(int studentId, DAY day)
+        {
+            throw new NotImplementedException();
         }
 
         //-----

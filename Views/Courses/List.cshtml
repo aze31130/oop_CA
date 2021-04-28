@@ -1,29 +1,26 @@
 ﻿@model IEnumerable<oop_CA.Models.Course>;
 
-<h1>TimeTable</h1>
+<h1>All Courses</h1>
 <table class="table">
     <thead>
         <tr>
             <th>
-                MONDAY
+                @Html.DisplayNameFor(model => model.id)
             </th>
             <th>
-                TUESDAY
+                @Html.DisplayNameFor(model => model.subject)
             </th>
             <th>
-                WEDNESDAY
+                @Html.DisplayNameFor(model => model.type)
             </th>
             <th>
-                THURSDAY
+                @Html.DisplayNameFor(model => model.day)
             </th>
             <th>
-                FRIDAY
+                @Html.DisplayNameFor(model => model.beginHour)
             </th>
             <th>
-                SATURDAY
-            </th>
-            <th>
-                SUNDAY
+                @Html.DisplayNameFor(model => model.endHour)
             </th>
         </tr>
     </thead>
@@ -35,13 +32,13 @@
                     @Html.DisplayFor(ModelItem => item.id)
                 </td>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.day)
-                </td>
-                <td>
                     @Html.DisplayFor(ModelItem => item.subject)
                 </td>
                 <td>
                     @Html.DisplayFor(ModelItem => item.type)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.day)
                 </td>
                 <td>
                     @Html.DisplayFor(ModelItem => item.beginHour)
@@ -50,7 +47,9 @@
                     @Html.DisplayFor(ModelItem => item.endHour)
                 </td>
                 <td>
-                    null
+                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                    <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                    <a asp-action="Remove" asp-route-id="@item.id">Remove</a>
                 </td>
             </tr>
         }
@@ -58,9 +57,5 @@
 </table>
 
 <div>
-    <a asp-action="Details">Details</a>
+    <a asp-action="Assign">Back to assign</a>
 </div>
-
-
-
-
