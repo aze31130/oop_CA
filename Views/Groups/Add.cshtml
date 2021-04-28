@@ -1,3 +1,29 @@
-﻿Add a student to a group View
+﻿@model oop_CA.Models.StudentGroup;
 
-<a asp-action="Index">Back to the Index</a>
+<h1>Add a student to a group</h1>
+<a asp-controller="Users" asp-action="">Student List</a>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="addAction">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="studentId" class="control-label"></label>
+                <input asp-for="studentId" class="form-control" />
+                <span asp-validation-for="studentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="groupId" class="control-label"></label>
+                <input asp-for="groupId" class="form-control" />
+                <span asp-validation-for="groupId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to index</a>
+</div>

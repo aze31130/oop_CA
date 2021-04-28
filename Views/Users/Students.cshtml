@@ -1,0 +1,47 @@
+﻿@model IEnumerable<oop_CA.Models.User>;
+
+<h1>Student List</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.username)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.id)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.firstname)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.lastname)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(ModelItem => item.username)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

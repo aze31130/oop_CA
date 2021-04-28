@@ -3,6 +3,7 @@ using oop_CA.Data;
 using oop_CA.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using static oop_CA.Utils.GroupsUtils;
 
 namespace oop_CA.Controllers
@@ -30,6 +31,20 @@ namespace oop_CA.Controllers
         {
             return View();
         }
+
+        //-----
+        //Action for Add View
+        //-----
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> addAction([Bind("studentId,groupId")] StudentGroup studentgroup)
+        {
+            //TODO CHECK IF THE GROUP IS VALID
+            _context.studentgroups.Add(studentgroup);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Groups");
+        }
+        
 
         //-----
         //Create group View

@@ -40,6 +40,14 @@ namespace oop_CA.Controllers
         }
 
         //-----
+        //View to list every student
+        //-----
+        public IActionResult Students()
+        {
+            return View(getUsersByType(USER_TYPE.STUDENT));
+        }
+
+        //-----
         //Login View
         //-----
         public IActionResult Login()
