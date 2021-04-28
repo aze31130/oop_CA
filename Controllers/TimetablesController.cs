@@ -15,11 +15,6 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
-        public IActionResult Details()
-        {
-            return View();
-        }
-
         //-----
         //Index view for timetable
         //-----

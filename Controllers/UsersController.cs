@@ -147,6 +147,11 @@ namespace oop_CA.Controllers
         public async Task<IActionResult> registerUser(
             [Bind("firstname,lastname,email,username,password,userType,amountToPay,payedAmount")] User user)
         {
+            if (isNameAlreadyTaken(user.username, _context.users.ToList()))
+            {
+                return BadRequest(new { message = "Username is already taken !" });
+            }
+
             if (user.userType.Equals(USER_TYPE.ADMIN) || user.userType.Equals(USER_TYPE.TEACHER))
             {
                 user.amountToPay = 0;

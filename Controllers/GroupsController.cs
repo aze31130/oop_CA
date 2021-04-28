@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using static oop_CA.Utils.GroupsUtils;
+using static oop_CA.Utils.UsersUtils;
 
 namespace oop_CA.Controllers
 {
@@ -48,7 +49,6 @@ namespace oop_CA.Controllers
             return BadRequest(new { message = "The entered group is invalid !" });
         }
         
-
         //-----
         //Create group View
         //-----
@@ -63,9 +63,9 @@ namespace oop_CA.Controllers
         public IActionResult createAction([Bind("name,referentTeacherId")] Group group)
         {
             //Check if the group is valid
-            if (!isGroupValid(group))
+            if (!isGroupValid(group, getAllTeachers(_context.users.ToList())))
             {
-                return BadRequest(new { message = "Some course informations are incorrect !" });
+                return BadRequest(new { message = "The teacher id is incorrect !" });
             }
             //Insert it into the database
             _context.groups.Add(group);
@@ -95,38 +95,6 @@ namespace oop_CA.Controllers
         public IActionResult Remove()
         {
             return View();
-        }
-
-        //Function to get the amount of student in a group
-        public int getStudentAmount(int groupId)
-        {
-            int amount = 0;
-            foreach (User user in _context.users.ToList())
-            {
-                /*
-                if (user.groupId.Equals(groupId))
-                {
-                    amount++;
-                }
-                */
-            }
-            return amount;
-        }
-
-        //Function to get a list of every student in a group
-        public List<User> getStudentList(int groupId)
-        {
-            List<User> students = new List<User> { };
-            foreach (User user in _context.users.ToList())
-            {
-                /*
-                if (user.groupId.Equals(groupId))
-                {
-                    students.Add(user);
-                }
-                */
-            }
-            return students;
         }
     }
 }

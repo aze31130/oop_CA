@@ -42,6 +42,15 @@ namespace oop_CA.Utils
         }
 
         //-----
+        //Returns true if a username is already taken
+        //-----
+        public static bool isNameAlreadyTaken(string name, List<User> allUsers)
+        {
+            return (allUsers.FindAll(x => x.username.Equals(name)).Count > 0);
+        }
+
+
+        //-----
         //Returns a list of all teachers
         //-----
         public static List<User> getAllTeachers(List<User> allUsers)
