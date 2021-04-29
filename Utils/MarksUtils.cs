@@ -7,6 +7,27 @@ namespace oop_CA.Utils
 {
     public class MarksUtils
     {
+        public static bool isMarkValid(Mark mark, List<User> allUsers)
+        {
+            bool firstRequirement = false;
+            bool secondRequirement = false;
+
+            foreach (User user in allUsers)
+            {
+                if (mark.studentId.Equals(user.id))
+                {
+                    firstRequirement = true;
+                }
+            }
+
+            if ((mark.value >= 0) && (mark.value <= 100) && (mark.coefficient <= 20) && (mark.coefficient > 0))
+            {
+                secondRequirement = true;
+            }
+            Console.WriteLine(mark.studentId);
+
+            return (firstRequirement && secondRequirement);
+        }
         //-----
         //Returns every student's marks
         //-----
