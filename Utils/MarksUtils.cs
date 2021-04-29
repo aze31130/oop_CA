@@ -24,7 +24,6 @@ namespace oop_CA.Utils
             {
                 secondRequirement = true;
             }
-            Console.WriteLine(mark.studentId);
 
             return (firstRequirement && secondRequirement);
         }
