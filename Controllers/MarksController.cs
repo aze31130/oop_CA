@@ -43,9 +43,14 @@ namespace oop_CA.Controllers
             return RedirectToAction("Index", "Marks");
         }
         
-        public IActionResult Details()
+        public IActionResult Details(int? id)
         {
-            return View();
+            if ((id == null) || (_context.marks.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.marks.Find(id));
         }
 
         public IActionResult Edit(int? id)
@@ -109,7 +114,7 @@ namespace oop_CA.Controllers
             Mark mark = await _context.marks.FindAsync(id);
             _context.marks.Remove(mark);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Marks");
         }
 
         //-----
