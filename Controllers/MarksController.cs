@@ -92,9 +92,24 @@ namespace oop_CA.Controllers
             return View(getMarks(getUserId(), _context.marks.ToList()));
         }
 
-        public IActionResult Remove()
+        public IActionResult Remove(int? id)
         {
-            return View();
+            if ((id == null) || (_context.marks.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.marks.Find(id));
+        }
+
+        [HttpPost, ActionName("Remove")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveFunction(int id)
+        {
+            Mark mark = await _context.marks.FindAsync(id);
+            _context.marks.Remove(mark);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         //-----

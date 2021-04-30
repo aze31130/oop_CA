@@ -1,3 +1,53 @@
-﻿Remove mark view
+﻿@model oop_CA.Models.Mark;
+@{
+    ViewData["Title"] = "Remove mark";
+}
+
+<h1>Remove Mark</h1>
+<h3>Are you sure to delete this mark ? It will be lost forever (a very long time!)</h3>
+
+<div>
+    <h4>Selected Mark:</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Student Id
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.studentId)
+        </dd>
+        <dt class="col-sm-2">
+            Subject
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.subject)
+        </dt>
+        <dt class="col-sm-2">
+            Teacher Comment
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.teacherComment)
+        </dd>
+        <dt class="col-sm-2">
+            Coefficient
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.coefficient)
+        </dt>
+        <dt class="col-sm-2">
+            Value
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.value)
+        </dd>
+    </dl>
+
+    <form asp-action="Remove">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Remove" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to List</a>
+    </form>
+</div>
+
 
 <a asp-action="Index">Back to the Index</a>
