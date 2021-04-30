@@ -7,6 +7,7 @@ using oop_CA.Models;
 using static oop_CA.Utils.MarksUtils;
 using static oop_CA.Models.Enumeration;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace oop_CA.Controllers
 {
@@ -47,9 +48,39 @@ namespace oop_CA.Controllers
             return View();
         }
 
-        public IActionResult Edit()
+        public IActionResult Edit(int? id)
         {
-            return View();
+            if ((id == null) || (_context.marks.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.marks.Find(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("studentId,subject,teacherComment,coefficient,value")] Mark mark)
+        {
+            if (ModelState.IsValid)
+            {
+                //Check if the mark id exist
+                if (!isMarkExist(id))
+                {
+                    return BadRequest(new { message = "The given mark id is invalid !" });
+                }
+
+                Mark editMark = _context.marks.ToList().Find(x => x.id.Equals(id));
+                editMark.studentId = mark.studentId;
+                editMark.subject = mark.subject;
+                editMark.teacherComment = mark.teacherComment;
+                editMark.coefficient = mark.coefficient;
+                editMark.value = mark.value;
+                _context.Entry(editMark).State = EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Marks");
+            }
+            return View(mark);
         }
 
         public IActionResult Index()
@@ -96,6 +127,14 @@ namespace oop_CA.Controllers
         private bool isAdmin(int userId)
         {
             return _context.users.ToList().Find(x => x.id.Equals(userId)).userType.Equals(USER_TYPE.ADMIN);
+        }
+
+        //-----
+        //Returns true if the given mark exist
+        //-----
+        private bool isMarkExist(int markId)
+        {
+            return (_context.marks.ToList().FindAll(x => x.id.Equals(markId)).Count > 0);
         }
     }
 }
