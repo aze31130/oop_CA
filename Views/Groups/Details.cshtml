@@ -1,4 +1,4 @@
-﻿@model oop_CA.Models.Group;
+﻿@model oop_CA.Models.GroupModel;
 @{
     ViewData["Title"] = "Details";
 }
@@ -21,6 +21,24 @@
             @Html.DisplayFor(model => model.referentTeacherId)
         </dd>
     </dl>
+    <div>
+        <div>Student inside this group:</div>
+        @foreach (var item in Model.userList)
+        {
+            <a>Firstname: @item.firstname</a>
+            <br />
+            <a>Lastname: @item.lastname</a>
+            <br />
+            <a>Email: @item.email</a>
+            <br />
+            <a>Username: @item.username</a>
+            <br />
+            <a>Type: @item.userType</a>
+            <br />
+            <a>-----</a>
+            <br />
+        }
+    </div>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |

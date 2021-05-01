@@ -84,7 +84,13 @@ namespace oop_CA.Controllers
                 return NotFound();
             }
             ViewData["id"] = id;
-            return View(_context.groups.Find(id));
+            Group group = _context.groups.Find(id);
+            GroupModel model = new GroupModel();
+            model.id = group.id;
+            model.name = group.name;
+            model.referentTeacherId = group.referentTeacherId;
+            model.userList = getUserFromId(getStudentListFromGroup((int)id));
+            return View(model);
         }
 
         //-----
@@ -151,6 +157,22 @@ namespace oop_CA.Controllers
             _context.groups.Remove(group);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Groups");
+        }
+
+
+        private List<StudentGroup> getStudentListFromGroup(int groupId)
+        {
+            return _context.studentgroups.ToList().FindAll(x => x.groupId.Equals(groupId));
+        }
+
+        private List<User> getUserFromId(List<StudentGroup> sg)
+        {
+            List<User> users = new List<User> { };
+            foreach (StudentGroup s in sg)
+            {
+                users.Add(_context.users.ToList().Find(x => x.id.Equals(s.studentId)));
+            }
+            return users;
         }
     }
 }
