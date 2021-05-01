@@ -82,7 +82,31 @@ namespace oop_CA.Controllers
         [Authorize]
         public IActionResult Update()
         {
-            return View();
+            User user = _context.users.ToList().Find(x => x.id.Equals(getUserId()));
+            UserUpdateModel model = new UserUpdateModel();
+            model.firstname = user.firstname;
+            model.lastname = user.lastname;
+            model.email = user.email;
+            model.username = user.username;
+            return View(model);
+        }
+
+        //-----
+        //Change password method
+        //-----
+        public IActionResult updateFunction([Bind("firstname,lastname,email,username")] UserUpdateModel model)
+        {
+            User user = _context.users.ToList().Find(x => x.id.Equals(getUserId()));
+
+            user.firstname = model.firstname;
+            user.lastname = model.lastname;
+            user.email = model.email;
+            user.username = model.username;
+
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Users");
         }
 
         //-----
@@ -94,16 +118,17 @@ namespace oop_CA.Controllers
             return View();
         }
 
+        //-----
+        //Change password method
+        //-----
         public IActionResult changePasswordFunction([Bind("oldPassword,newPassword,confirmedNewPassword")] ChangePasswordModel model)
         {
-            /*
             User user = _context.users.ToList().Find(x => x.id.Equals(getUserId()));
             //Check if old password is valid
-            if (AuthenticateUser(user.username, model.newPassword) == null)
+            if (AuthenticateUser(user.username, model.oldPassword) == null)
             {
-
+                return BadRequest(new { message = "Your first password is incorrect" });
             }
-
 
             //Check if the new password and the confirmed password matches
             if (!model.newPassword.Equals(model.confirmedNewPassword))
@@ -111,9 +136,10 @@ namespace oop_CA.Controllers
                 return BadRequest(new { message = "The passwords doesn't match" });
             }
 
-            
             user.password = getSHA256Hash(getSHA256Hash(model.newPassword + user.salt) + user.salt);
-            */
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+
             return RedirectToAction("Index", "Users");
         }
 
@@ -236,40 +262,6 @@ namespace oop_CA.Controllers
         public List<User> getUsersByType(USER_TYPE type)
         {
             return _context.users.ToList().FindAll(x => x.userType.Equals(type));
-        }
-
-
-
-        ///
-        [HttpPut("id")]
-        public async Task<ActionResult> UpdateUser(int id, User user)
-        {
-            if ((!id.Equals(user.id)) || (!_context.users.Any(x => x.id.Equals(id))))
-            {
-                return BadRequest();
-            }
-            else
-            {
-                _context.Entry(user).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-                return CreatedAtAction("GetUsers", new { id = user.id }, user);
-            }
-        }
-
-        [HttpDelete("id")]
-        public async Task<ActionResult<User>> DeleteUser(int id)
-        {
-            var user = await _context.users.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                _context.users.Remove(user);
-                await _context.SaveChangesAsync();
-                return user;
-            }
         }
 
         //-----
