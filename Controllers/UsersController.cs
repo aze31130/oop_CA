@@ -77,6 +77,31 @@ namespace oop_CA.Controllers
         }
 
         //-----
+        //Register user View
+        //-----
+        [Authorize(Roles = AccessLevel.ADMIN)]
+        public IActionResult Remove(int? id)
+        {
+            if ((id == null) || (_context.users.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.users.Find(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.ADMIN)]
+        public async Task<IActionResult> RemoveFunction(int id)
+        {
+            User user = await _context.users.FindAsync(id);
+            _context.users.Remove(user);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Users");
+        }
+
+        //-----
         //Edit View
         //-----
         [Authorize(Roles = AccessLevel.ADMIN)]
