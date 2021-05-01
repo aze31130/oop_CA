@@ -96,6 +96,9 @@ namespace oop_CA.Controllers
             return View(model);
         }
 
+        //-----
+        //Edit admin function
+        //-----
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = AccessLevel.ADMIN)]
@@ -127,6 +130,40 @@ namespace oop_CA.Controllers
             return View(model);
         }
 
+        //-----
+        //Admin change password view
+        //-----
+        [Authorize(Roles = AccessLevel.ADMIN)]
+        public IActionResult AdminChangePassword(int? id)
+        {
+            if ((id == null) || (_context.users.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            AdminChangePassword model = new AdminChangePassword();
+            model.newPassword = "";
+            return View(model);
+        }
+
+        //-----
+        //Admin change password method
+        //-----
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.ADMIN)]
+        public IActionResult AdminChangePassword(int id, [Bind("newPassword")] AdminChangePassword model)
+        {
+            if (ModelState.IsValid)
+            {
+                User user = _context.users.ToList().Find(x => x.id.Equals(id));
+                user.password = getSHA256Hash(getSHA256Hash(model.newPassword + user.salt) + user.salt);
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Users");
+            }
+            return View(model);
+        }
 
         //-----
         //Self user update view
