@@ -5,9 +5,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.id)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.firstname)
             </th>
             <th>
@@ -19,21 +16,12 @@
             <th>
                 @Html.DisplayNameFor(model => model.username)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.password)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.salt)
-            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in @Model)
         {
         <tr>
-            <td>
-                @Html.DisplayFor(ModelItem => item.id)
-            </td>
             <td>
                 @Html.DisplayFor(ModelItem => item.firstname)
             </td>
@@ -47,14 +35,8 @@
                 @Html.DisplayFor(ModelItem => item.username)
             </td>
             <td>
-                @Html.DisplayFor(ModelItem => item.password)
-            </td>
-            <td>
-                @Html.DisplayFor(ModelItem => item.salt)
-            </td>
-            <td>
-                <a asp-action="Manage" asp-route-id="@item.id">Edit</a>
-                <a asp-action="Manage" asp-route-id="@item.id">Details</a>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                <a asp-action="Manage" asp-route-id="@item.id">Change Password</a>
                 <a asp-action="Manage" asp-route-id="@item.id">Delete</a>
             </td>
         </tr>

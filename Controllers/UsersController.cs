@@ -77,6 +77,58 @@ namespace oop_CA.Controllers
         }
 
         //-----
+        //Edit View
+        //-----
+        [Authorize(Roles = AccessLevel.ADMIN)]
+        public IActionResult Edit(int? id)
+        {
+            if ((id == null) || (_context.users.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            User user = _context.users.Find(id);
+            UserUpdateModel model = new UserUpdateModel();
+            model.firstname = user.firstname;
+            model.lastname = user.lastname;
+            model.email = user.email;
+            model.username = user.username;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.ADMIN)]
+        public IActionResult Edit(int id, [Bind("firstname,lastname,email,username")] UserUpdateModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //Check if the mark id exist
+                if (getUserById(id) == null)
+                {
+                    return BadRequest(new { message = "The given user id is invalid !" });
+                }
+
+                if ((string.IsNullOrEmpty(model.firstname)) || (string.IsNullOrEmpty(model.lastname))
+                    || (string.IsNullOrEmpty(model.email)) || (string.IsNullOrEmpty(model.username)))
+                {
+                    return BadRequest(new { message = "You need to provide every fields !" });
+                }
+
+                User editUser = _context.users.ToList().Find(x => x.id.Equals(id));
+                editUser.firstname = model.firstname;
+                editUser.lastname = model.lastname;
+                editUser.email = model.email;
+                editUser.username = model.username;
+                _context.Entry(editUser).State = EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Users");
+            }
+            return View(model);
+        }
+
+
+        //-----
         //Self user update view
         //-----
         [Authorize]
