@@ -1,3 +1,28 @@
-﻿Details view for groups
+﻿@model oop_CA.Models.Group;
+@{
+    ViewData["Title"] = "Details";
+}
 
-<a asp-action="Index">Back to the Index</a>
+<h1>Group details</h1>
+<div>
+    <h4>Group</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Group name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class="col-sm-2">
+            Referent Teacher ID
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.referentTeacherId)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to the Index</a>
+</div>

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using oop_CA.Data;
 using oop_CA.Models;
 using System.Collections.Generic;
@@ -76,25 +77,80 @@ namespace oop_CA.Controllers
         //-----
         //Group details View
         //-----
-        public IActionResult Details()
+        public IActionResult Details(int? id)
         {
-            return View();
+            if ((id == null) || (_context.groups.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.groups.Find(id));
         }
 
         //-----
         //Edit group View
         //-----
-        public IActionResult Edit()
+        public IActionResult Edit(int? id)
         {
-            return View();
+            if ((id == null) || (_context.groups.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.groups.Find(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, [Bind("name,referentTeacherId")] Group group)
+        {
+            if (ModelState.IsValid)
+            {
+                //Check if the mark id exist
+                if (!isGroupExists(id))
+                {
+                    return BadRequest(new { message = "The given group id is invalid !" });
+                }
+
+                Group editGroup = _context.groups.ToList().Find(x => x.id.Equals(id));
+                editGroup.name = group.name;
+                editGroup.referentTeacherId = group.referentTeacherId;
+                _context.Entry(editGroup).State = EntityState.Modified;
+                _context.SaveChanges();
+                return RedirectToAction("Index", "Groups");
+            }
+            return View(group);
+        }
+
+        //-----
+        //Returns true if a group exists
+        //-----
+        private bool isGroupExists(int groupId)
+        {
+            return (_context.groups.ToList().FindAll(x => x.id.Equals(groupId)).Count > 0);
         }
 
         //-----
         //Remove group View
         //-----
-        public IActionResult Remove()
+        public IActionResult Remove(int? id)
         {
-            return View();
+            if ((id == null) || (_context.groups.Find(id) == null))
+            {
+                return NotFound();
+            }
+            ViewData["id"] = id;
+            return View(_context.groups.Find(id));
+        }
+
+        [HttpPost, ActionName("Remove")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RemoveFunction(int id)
+        {
+            Group group = await _context.groups.FindAsync(id);
+            _context.groups.Remove(group);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index", "Groups");
         }
     }
 }

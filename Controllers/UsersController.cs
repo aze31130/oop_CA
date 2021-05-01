@@ -86,6 +86,38 @@ namespace oop_CA.Controllers
         }
 
         //-----
+        //Change password view
+        //-----
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        public IActionResult changePasswordFunction([Bind("oldPassword,newPassword,confirmedNewPassword")] ChangePasswordModel model)
+        {
+            /*
+            User user = _context.users.ToList().Find(x => x.id.Equals(getUserId()));
+            //Check if old password is valid
+            if (AuthenticateUser(user.username, model.newPassword) == null)
+            {
+
+            }
+
+
+            //Check if the new password and the confirmed password matches
+            if (!model.newPassword.Equals(model.confirmedNewPassword))
+            {
+                return BadRequest(new { message = "The passwords doesn't match" });
+            }
+
+            
+            user.password = getSHA256Hash(getSHA256Hash(model.newPassword + user.salt) + user.salt);
+            */
+            return RedirectToAction("Index", "Users");
+        }
+
+        //-----
         //Logout View
         //-----
         [Authorize]

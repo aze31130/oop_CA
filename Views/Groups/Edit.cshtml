@@ -1,3 +1,31 @@
-﻿Edit groups view
+﻿@model oop_CA.Models.Group;
+@{
+    ViewData["Title"] = "Group - Edit";
+}
+<h1>Edit Group</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="id" />
+            <div class="form-group">
+                <label asp-for="name" class="control-label"></label>
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="referentTeacherId" class="control-label"></label>
+                <input asp-for="referentTeacherId" class="form-control" />
+                <span asp-validation-for="referentTeacherId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save group" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
 
-<a asp-action="Index">Back to the Index</a>
+<div>
+    <a asp-action="Index">Back to index</a>
+</div>

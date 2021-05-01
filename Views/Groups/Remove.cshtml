@@ -1,3 +1,32 @@
-﻿Remove group view
+﻿@model oop_CA.Models.Group;
+@{
+    ViewData["Title"] = "Remove group";
+}
 
-<a asp-action="Index">Back to the Index</a>
+<h1>Remove Group</h1>
+<h3>Are you sure to delete this group ? It will be lost forever (a very long time!)</h3>
+
+<div>
+    <h4>Selected Group:</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Name
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt class="col-sm-2">
+            Referent teacher ID
+        </dt>
+        <dt class="col-sm-10">
+            @Html.DisplayFor(model => model.referentTeacherId)
+        </dt>
+    </dl>
+
+    <form asp-action="Remove">
+        <input type="hidden" asp-for="id" />
+        <input type="submit" value="Remove" class="btn btn-danger" /> |
+        <a asp-action="Index">Back to index</a>
+    </form>
+</div>

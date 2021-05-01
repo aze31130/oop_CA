@@ -3,7 +3,6 @@ using static oop_CA.Models.Enumeration;
 
 namespace oop_CA.Models
 {
-
     public class Mark
     {
         [Key]
