@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using oop_CA.Data;
 using oop_CA.Models;
 using System;
@@ -8,6 +9,7 @@ using static oop_CA.Utils.UsersUtils;
 
 namespace oop_CA.Controllers
 {
+    [Authorize]
     public class CoursesController : Controller
     {
         private readonly Context _context;
@@ -24,15 +26,10 @@ namespace oop_CA.Controllers
             return View(_context.courses.ToList());
         }
 
-        //Function to add a course to a student
-        public int addCourse(Course course, int studentId)
-        {
-            throw new NotImplementedException();
-        }
-
         //-----
         //View to create a course
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Schedule()
         {
             return View();
@@ -41,6 +38,7 @@ namespace oop_CA.Controllers
         //-----
         //Action for view Schedule
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult scheduleAction([Bind("teacherId,subject,type,day,beginHour,endHour")] Course course)
         {
             //Check if the course is valid
@@ -57,6 +55,7 @@ namespace oop_CA.Controllers
         //-----
         //View to assign a course to a group
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Assign()
         {
             return View();
@@ -65,6 +64,7 @@ namespace oop_CA.Controllers
         //----- isTimetableValid(Timetable timetable, List<Course> allCourses, List<Group> allGroups, List<User> allTeachers)
         //Action for view Assign
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult assignAction([Bind("courseId,groupId,teacherId")] Timetable timetable)
         {
             //Verification to make sure the course, group and teacher exist
@@ -89,6 +89,7 @@ namespace oop_CA.Controllers
         //-----
         //Edit View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Edit()
         {
             return View();
@@ -105,6 +106,7 @@ namespace oop_CA.Controllers
         //-----
         //Remove View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN )]
         public IActionResult Remove()
         {
             return View();

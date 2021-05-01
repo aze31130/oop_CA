@@ -32,6 +32,12 @@ namespace oop_CA.Controllers
             {
                 ViewData["Logged"] = "OK";
             }
+
+            if (getUserById(getUserId()).userType.Equals(USER_TYPE.ADMIN))
+            {
+                ViewData["Admin"] = "OK";
+            }
+
             return View();
         }
 

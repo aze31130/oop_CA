@@ -27,6 +27,7 @@ namespace oop_CA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public async Task<IActionResult> addAction([Bind("studentId,subject,teacherComment,coefficient,value")] Mark mark)
         {
             //Check if the mark is valid
@@ -65,6 +66,7 @@ namespace oop_CA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Edit(int id, [Bind("studentId,subject,teacherComment,coefficient,value")] Mark mark)
         {
             if (ModelState.IsValid)
@@ -97,6 +99,7 @@ namespace oop_CA.Controllers
             return View(getMarks(getUserId(), _context.marks.ToList()));
         }
 
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Remove(int? id)
         {
             if ((id == null) || (_context.marks.Find(id) == null))
@@ -109,6 +112,7 @@ namespace oop_CA.Controllers
 
         [HttpPost, ActionName("Remove")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public async Task<IActionResult> RemoveFunction(int id)
         {
             Mark mark = await _context.marks.FindAsync(id);

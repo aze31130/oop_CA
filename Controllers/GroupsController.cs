@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using oop_CA.Data;
 using oop_CA.Models;
@@ -29,6 +30,7 @@ namespace oop_CA.Controllers
         //-----
         //Add student to a group View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Add()
         {
             return View();
@@ -39,6 +41,7 @@ namespace oop_CA.Controllers
         //-----
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public async Task<IActionResult> addAction([Bind("studentId,groupId")] StudentGroup studentGroup)
         {
             if (isStudentGroupValid(studentGroup, _context.users.ToList(), _context.groups.ToList()))
@@ -49,10 +52,11 @@ namespace oop_CA.Controllers
             }
             return BadRequest(new { message = "The entered group is invalid !" });
         }
-        
+
         //-----
         //Create group View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Create()
         {
             return View();
@@ -61,6 +65,7 @@ namespace oop_CA.Controllers
         //-----
         //Create action group View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult createAction([Bind("name,referentTeacherId")] Group group)
         {
             //Check if the group is valid
@@ -96,6 +101,7 @@ namespace oop_CA.Controllers
         //-----
         //Edit group View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Edit(int? id)
         {
             if ((id == null) || (_context.groups.Find(id) == null))
@@ -108,6 +114,7 @@ namespace oop_CA.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Edit(int id, [Bind("name,referentTeacherId")] Group group)
         {
             if (ModelState.IsValid)
@@ -139,6 +146,7 @@ namespace oop_CA.Controllers
         //-----
         //Remove group View
         //-----
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Remove(int? id)
         {
             if ((id == null) || (_context.groups.Find(id) == null))
@@ -151,6 +159,7 @@ namespace oop_CA.Controllers
 
         [HttpPost, ActionName("Remove")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public async Task<IActionResult> RemoveFunction(int id)
         {
             Group group = await _context.groups.FindAsync(id);
@@ -158,7 +167,6 @@ namespace oop_CA.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Groups");
         }
-
 
         private List<StudentGroup> getStudentListFromGroup(int groupId)
         {
