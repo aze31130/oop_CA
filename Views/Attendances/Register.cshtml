@@ -1,0 +1,37 @@
+﻿@model oop_CA.Models.Attendance
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1>Record an attendance</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="registerAction">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="courseId" class="control-label"></label>
+                <input asp-for="courseId" class="form-control" />
+                <span asp-validation-for="courseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="studentId" class="control-label"></label>
+                <input asp-for="studentId" class="form-control" />
+                <span asp-validation-for="studentId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="isPresent" class="control-label"></label>
+                <input asp-for="isPresent" class="form-control" />
+                <span asp-validation-for="isPresent" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Record" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

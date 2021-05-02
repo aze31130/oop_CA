@@ -17,7 +17,6 @@ namespace oop_CA.Controllers
     public class UsersController : Controller
     {
         private readonly Context _context;
-
         public UsersController(Context context)
         {
             _context = context;
