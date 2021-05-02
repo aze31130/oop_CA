@@ -33,6 +33,11 @@ namespace oop_CA.Controllers
                 ViewData["Logged"] = "OK";
             }
 
+            if (getUserById(getUserId()).userType.Equals(USER_TYPE.TEACHER))
+            {
+                ViewData["Teacher"] = "OK";
+            }
+
             if (getUserById(getUserId()).userType.Equals(USER_TYPE.ADMIN))
             {
                 ViewData["Admin"] = "OK";
@@ -103,6 +108,34 @@ namespace oop_CA.Controllers
         {
             User user = await _context.users.FindAsync(id);
             _context.users.Remove(user);
+
+            //Garbage collection for attendance
+            foreach (Attendance a in _context.attendances.ToList())
+            {
+                if (a.studentId.Equals(user.id))
+                {
+                    _context.attendances.Remove(a);
+                }
+            }
+
+            //Garbage collection for studentgroups
+            foreach (StudentGroup sg in _context.studentgroups.ToList())
+            {
+                if (sg.studentId.Equals(user.id))
+                {
+                    _context.studentgroups.Remove(sg);
+                }
+            }
+
+            //Garbage collection for marks
+            foreach (Mark m in _context.marks.ToList())
+            {
+                if (m.studentId.Equals(user.id))
+                {
+                    _context.marks.Remove(m);
+                }
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Users");
         }

@@ -69,7 +69,7 @@ namespace oop_CA.Utils
         //-----
         //Overloading with the list of student's marks
         //-----
-        public double getStudentAverage(List<Mark> studentMarks)
+        public static double getStudentAverage(List<Mark> studentMarks)
         {
             int totalSum = 0;
             int coefSum = 0;
@@ -109,7 +109,7 @@ namespace oop_CA.Utils
         //Overloading with a list of marks
         //Note: The default max mark is -1.
         //-----
-        public int getStudentHighestMark(List<Mark> marks)
+        public static int getStudentHighestMark(List<Mark> marks)
         {
             int maxMark = -1;
             foreach (Mark mark in marks)
@@ -151,7 +151,7 @@ namespace oop_CA.Utils
         //Overloading with a list of marks
         //Note: The default min mark is -1.
         //-----
-        public int getStudentLowestMark(List<Mark> marks)
+        public static int getStudentLowestMark(List<Mark> marks)
         {
             int minMark = 100;
             foreach (Mark mark in marks)

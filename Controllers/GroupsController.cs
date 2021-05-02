@@ -164,6 +164,16 @@ namespace oop_CA.Controllers
         {
             Group group = await _context.groups.FindAsync(id);
             _context.groups.Remove(group);
+
+            //Garbage collection for studentsgroups
+            foreach (StudentGroup sg in _context.studentgroups.ToList())
+            {
+                if (sg.groupId.Equals(group.id))
+                {
+                    _context.studentgroups.Remove(sg);
+                }
+            }
+
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "Groups");
         }

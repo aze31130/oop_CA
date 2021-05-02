@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using static oop_CA.Models.Enumeration;
 
 namespace oop_CA.Models
@@ -16,5 +17,6 @@ namespace oop_CA.Models
         public int coefficient { get; set; }
         [Display(Name = "Value")]
         public int value { get; set; }
+        public DateTime date { get; set; }
     }
 }

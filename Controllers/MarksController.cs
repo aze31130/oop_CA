@@ -8,6 +8,7 @@ using static oop_CA.Utils.MarksUtils;
 using static oop_CA.Models.Enumeration;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace oop_CA.Controllers
 {
@@ -20,6 +21,7 @@ namespace oop_CA.Controllers
             _context = context;
         }
 
+        [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public IActionResult Add()
         {
             return View();
@@ -38,6 +40,7 @@ namespace oop_CA.Controllers
 
             if (ModelState.IsValid)
             {
+                mark.date = DateTime.UtcNow;
                 _context.marks.Add(mark);
                 await _context.SaveChangesAsync();
             }
@@ -96,7 +99,12 @@ namespace oop_CA.Controllers
             {
                 ViewData["Teacher"] = "OK";
             }
-            return View(getMarks(getUserId(), _context.marks.ToList()));
+            MarkViewModel model = new MarkViewModel();
+            model.allMarks = getMarks(getUserId(), _context.marks.ToList());
+            model.bestMark = getStudentHighestMark(model.allMarks);
+            model.worstMark = getStudentLowestMark(model.allMarks);
+            model.average = getStudentAverage(model.allMarks);
+            return View(model);
         }
 
         [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]

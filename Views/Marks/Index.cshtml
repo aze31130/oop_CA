@@ -1,4 +1,4 @@
-﻿@model IEnumerable<oop_CA.Models.Mark>;
+﻿@model oop_CA.Models.MarkViewModel;
 
 <h1>Index</h1>
 @if ((string)ViewData["Teacher"] == "OK")
@@ -12,21 +12,24 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.subject)
+                Subject
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.teacherComment)
+                Teacher Comment
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.coefficient)
+                Coefficient
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.value)
+                Value
+            </th>
+            <th>
+                Date
             </th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in @Model)
+        @foreach (var item in @Model.allMarks)
         {
             <tr>
                 <td>
@@ -42,11 +45,27 @@
                     @Html.DisplayFor(ModelItem => item.value)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
-                    <a asp-action="Details" asp-route-id="@item.id">Details</a>
-                    <a asp-action="Remove" asp-route-id="@item.id">Remove</a>
+                    @Html.DisplayFor(ModelItem => item.date)
                 </td>
+                @if (((string)ViewData["Admin"] == "OK") || ((string)ViewData["Teacher"] == "OK"))
+                {
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.id">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.id">Details</a>
+                        <a asp-action="Remove" asp-route-id="@item.id">Remove</a>
+                    </td>
+                }
             </tr>
         }
     </tbody>
+    <div>
+        <div>Student info:</div>
+        <a>Highest mark: @Html.DisplayFor(model => model.bestMark)</a>
+        <br />
+        <a>Lowest mark: @Html.DisplayFor(model => model.worstMark)</a>
+        <br />
+        <a>Global average: @Html.DisplayFor(model => model.average)</a>
+        <br />
+        <br />
+    </div>
 </table>
