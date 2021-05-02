@@ -1,9 +1,12 @@
-﻿@model IEnumerable<oop_CA.Models.Course>;
+﻿@model oop_CA.Models.CourseModel;
 
 <h1>TimeTable</h1>
 <table class="table">
     <thead>
         <tr>
+            <th>
+                
+            </th>
             <th>
                 MONDAY
             </th>
@@ -28,32 +31,177 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in @Model)
+        @for (int i = 8; i < 13; i++)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.id)
+                    @i AM
                 </td>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.day)
+                    @foreach (Course c in @Model.monday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.subject)
+                    @foreach (Course c in @Model.tuesday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.type)
+                    @foreach (Course c in @Model.wednesday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.beginHour)
+                    @foreach (Course c in @Model.thursday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
                 </td>
                 <td>
-                    @Html.DisplayFor(ModelItem => item.endHour)
+                    @foreach (Course c in @Model.friday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
                 </td>
                 <td>
-                    null
+                    @foreach (Course c in @Model.saturday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.sunday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
                 </td>
             </tr>
         }
+
+        @for (int i = 1; i < 7; i++)
+        {
+            <tr>
+                <td>
+                    @i PM
+                </td>
+                <td>
+                    @foreach (Course c in @Model.monday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.tuesday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.wednesday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.thursday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.friday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.saturday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+                <td>
+                    @foreach (Course c in @Model.sunday)
+                    {
+                        @if (c.beginHour.Equals(i))
+                        {
+                            @Html.DisplayFor(ModelItem => c.subject)
+                            @Html.Raw("<br/>");
+                            @Html.DisplayFor(ModelItem => c.type)
+                        }
+                    }
+                </td>
+            </tr>
+         }
     </tbody>
 </table>
 

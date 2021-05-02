@@ -104,6 +104,14 @@ namespace oop_CA.Utils
         }
 
         //-----
+        //Returns a list of every courses of a given day
+        //-----
+        public static List<Course> filterCourses(List<Course> allCourses, DAY day)
+        {
+            return allCourses.FindAll(x => x.day.Equals(day));
+        }
+
+        //-----
         //Returns a list of every courses of a given student only for a specific day
         //-----
         public List<Course> getStudentCourses(int studentId, DAY day)

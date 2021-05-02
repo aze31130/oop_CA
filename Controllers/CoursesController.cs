@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using oop_CA.Data;
 using oop_CA.Models;
-using System;
 using System.Linq;
 using static oop_CA.Utils.CoursesUtils;
 using static oop_CA.Utils.UsersUtils;
