@@ -23,16 +23,7 @@ namespace oop_CA.Controllers
         //-----
         public IActionResult Index()
         {
-            CourseModel model = new CourseModel();
-            List<Course> allCourses = getUserCourse(getUserId(), _context.timetables.ToList(), _context.courses.ToList(), _context.studentgroups.ToList());
-            model.monday = filterCourses(allCourses, DAY.MONDAY);
-            model.tuesday = filterCourses(allCourses, DAY.TUESDAY);
-            model.wednesday = filterCourses(allCourses, DAY.WEDNESDAY);
-            model.thursday = filterCourses(allCourses, DAY.THURSDAY);
-            model.friday = filterCourses(allCourses, DAY.FRIDAY);
-            model.saturday = filterCourses(allCourses, DAY.SATURDAY);
-            model.sunday = filterCourses(allCourses, DAY.SUNDAY);
-            return View(model);
+            return View(getUserCourse(getUserId(), _context.timetables.ToList(), _context.courses.ToList(), _context.studentgroups.ToList()));
         }
 
         //-----
