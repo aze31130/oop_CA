@@ -4,6 +4,7 @@ using oop_CA.Data;
 using oop_CA.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace oop_CA.Controllers
@@ -15,15 +16,11 @@ namespace oop_CA.Controllers
         {
             _context = context;
         }
+
         //Function to get the amount of missed class
         public int getStudentMissedClass(int studentId)
         {
             throw new NotImplementedException();
-        }
-
-        public IActionResult Details()
-        {
-            return View();
         }
 
         public IActionResult Index()
@@ -42,26 +39,43 @@ namespace oop_CA.Controllers
         [Authorize(Roles = AccessLevel.TEACHER + "," + AccessLevel.ADMIN)]
         public async Task<IActionResult> registerAction([Bind("courseId,studentId,isPresent")] Attendance attendance)
         {
-            /*
             //Check if the attendance is valid
-            if (!isAttendanceValid(attendance, _context.attendances.ToList()))
+            if (!isAttendanceValid(attendance, _context.users.ToList(), _context.courses.ToList()))
             {
-                return BadRequest(new { message = "The given mark is invalid !" });
+                return BadRequest(new { message = "The given attendance is invalid ! Check the course / student Id" });
             }
 
             if (ModelState.IsValid)
             {
-                mark.date = DateTime.UtcNow;
-                _context.marks.Add(mark);
+                _context.attendances.Add(attendance);
                 await _context.SaveChangesAsync();
             }
-            */
+            
             return RedirectToAction("Index", "Attendances");
         }
 
         private bool isAttendanceValid(Attendance attendance, List<User> allUsers, List<Course> allCourses)
         {
-            return false;
+            bool firstRequirement = false;
+            bool secondRequirement = false;
+
+            foreach (User u in allUsers)
+            {
+                if (attendance.studentId.Equals(u.id))
+                {
+                    firstRequirement = true;
+                }
+            }
+
+            foreach (Course c in allCourses)
+            {
+                if (attendance.studentId.Equals(c.id))
+                {
+                    secondRequirement = true;
+                }
+            }
+
+            return (firstRequirement && secondRequirement);
         }
     }
 }
