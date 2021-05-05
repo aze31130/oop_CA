@@ -14,6 +14,7 @@ using static oop_CA.Utils.UsersUtils;
 
 namespace oop_CA.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         private readonly Context _context;
@@ -64,6 +65,7 @@ namespace oop_CA.Controllers
         //-----
         //Login View
         //-----
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View();
@@ -81,6 +83,7 @@ namespace oop_CA.Controllers
         //-----
         //Register user View
         //-----
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View();
@@ -231,7 +234,6 @@ namespace oop_CA.Controllers
         //-----
         //Self user update view
         //-----
-        [Authorize]
         public IActionResult Update()
         {
             User user = _context.users.ToList().Find(x => x.id.Equals(getUserId()));
@@ -264,7 +266,6 @@ namespace oop_CA.Controllers
         //-----
         //Change password view
         //-----
-        [Authorize]
         public IActionResult ChangePassword()
         {
             return View();
@@ -298,13 +299,11 @@ namespace oop_CA.Controllers
         //-----
         //Logout View
         //-----
-        [Authorize]
         public IActionResult Logout()
         {
             return View();
         }
 
-        [Authorize]
         public async Task<IActionResult> LogoutUser()
         {
             await HttpContext.SignOutAsync();
@@ -356,6 +355,7 @@ namespace oop_CA.Controllers
         }
 
         //Post method to register a student
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> registerUser(
